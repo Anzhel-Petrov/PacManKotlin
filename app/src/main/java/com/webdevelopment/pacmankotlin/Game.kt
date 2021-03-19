@@ -197,10 +197,12 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
                 if(running)
                 {
                     running = false
+                    level--
                     val addDialog = AlertDialog.Builder(context)
                             .setTitle("Too bad - you died!")
-                            .setMessage("Do you want to try again?")
-                            .setPositiveButton("Next Level") { _, _ -> newGame()}
+                            .setMessage("You've been sent back a level!")
+                            .setPositiveButton("Play Again") { _, _ -> newGame()}
+                            .setCancelable(false)
                     addDialog.show()
                 }
 
@@ -216,6 +218,7 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
                 .setTitle("You Beat this level")
                 .setMessage("Do you want to move on to the next level?")
                 .setPositiveButton("Next Level") { _, _ -> newGame()}
+                .setCancelable(false)
             addDialog.show()
         }
     }

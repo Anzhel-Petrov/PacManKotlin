@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 timerMethod()
             }
 
-        }, 0, 100) //0 indicates we start now, 200
+        }, 0, 50) //0 indicates we start now, 200
         //is the number of miliseconds between each call
 
         levelTimer.schedule(object : TimerTask() {
@@ -119,6 +120,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            }
             if (game!!.levelTime == 0) {
                 game!!.running = false
+                val addDialog = AlertDialog.Builder(this)
+                    .setTitle("Time is up - too bad!")
+                    .setMessage("Do you want to try again?")
+                    .setPositiveButton("Try Again") { _, _ -> game!!.newGame()}
+                    .setCancelable(false)
+                addDialog.show()
             }
         }
     }
@@ -133,19 +140,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             // run every second and one for the pacman which need to run
             //faster than every second
             timeView.text = "${resources.getString(R.string.time)} $counter"
-            game!!.moveEnemy(20)
+            game!!.moveEnemy(9)
 
             if (direction == UP) { // move up
-                game!!.movePacmanUp(20)
+                game!!.movePacmanUp(10)
                 //move the pacman - you
                 //should call a method on your game class to move
                 //the pacman instead of this - you have already made that
             } else if (direction == RIGHT) {
-                game!!.movePacmanRight(20)
+                game!!.movePacmanRight(10)
             } else if (direction == DOWN) {
-                game!!.movePacmanDown(20)
+                game!!.movePacmanDown(10)
             } else if (direction == LEFT) {
-                game!!.movePacmanLeft(20)
+                game!!.movePacmanLeft(10)
             }
         }
     }
@@ -166,6 +173,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             return true
         } else if (id == R.id.action_newGame) {
             Toast.makeText(this, "New Game clicked", Toast.LENGTH_LONG).show()
+            game!!.running = false
             game!!.level = -1
             game?.newGame()
             return true
