@@ -30,7 +30,7 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
     var pacy: Int = 0
     var running = false
     var levelTime = 60
-//    var level = -1
+    var level = -1
 
 
     //did we initialize the coins?
@@ -76,7 +76,7 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
             coins.add(GoldCoin(randomX, randomY, false))
         }
 
-        for (i in 0..2) {
+        for (i in 0..level) {
             var randomX: Int = random.nextInt(emaxX - minX + 1) + minX
             var randomY: Int = random.nextInt(emaxY - minY + 1) + minY
             enemies.add(Enemy(randomX, randomY, true, (1..4).random(), false))
@@ -197,11 +197,11 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
                 if(running)
                 {
                     running = false
-//                    val addDialog = AlertDialog.Builder(context)
-//                            .setTitle("You Beat this level")
-//                            .setMessage("Do you want to move on to the next level?")
-//                            .setPositiveButton("Next Level") { _, _ -> newGame()}
-//                    addDialog.show()
+                    val addDialog = AlertDialog.Builder(context)
+                            .setTitle("Too bad - you died!")
+                            .setMessage("Do you want to try again?")
+                            .setPositiveButton("Next Level") { _, _ -> newGame()}
+                    addDialog.show()
                 }
 
 //                newGame()
@@ -211,7 +211,7 @@ class Game(private var context: Context, view: TextView, view2: TextView) {
         if (points == coins.size && running) {
 //            Toast.makeText(this.context,"This was the last fucking coin bro!",Toast.LENGTH_SHORT).show()
             running = false
-//            level++
+            level++
             val addDialog = AlertDialog.Builder(context)
                 .setTitle("You Beat this level")
                 .setMessage("Do you want to move on to the next level?")

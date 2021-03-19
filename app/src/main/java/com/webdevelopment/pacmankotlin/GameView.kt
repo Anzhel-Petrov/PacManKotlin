@@ -65,8 +65,11 @@ class GameView : View {
             {
                 canvas.drawBitmap(game!!.coinBitmap, coin.coinx.toFloat() + game!!.pacBitmap.width + 100,
                     coin.coiny.toFloat() + game!!.pacBitmap.height + 100, paint)
+                coin.coinx = coin.coinx + game!!.pacBitmap.width + 100
+                coin.coiny = coin.coiny + game!!.pacBitmap.height + 100
+                coin.taken = false
             }
-            if (!coin.taken) {
+            else if (!coin.taken) {
                 canvas.drawBitmap(game!!.coinBitmap, coin.coinx.toFloat(),
                     coin.coiny.toFloat(), paint)
             }
@@ -77,6 +80,8 @@ class GameView : View {
             {
                 canvas.drawBitmap(game!!.inkyBitmap, enemy.enemyx.toFloat() + game!!.pacBitmap.width + 100,
                     enemy.enemyy.toFloat() + game!!.pacBitmap.height + 100, paint)
+                enemy.enemyx = enemy.enemyx + game!!.pacBitmap.width + 100
+                enemy.enemyy = enemy.enemyy + game!!.pacBitmap.height + 100
                 enemy.isStacked = false
             }
             else if (enemy.isAlive) {
